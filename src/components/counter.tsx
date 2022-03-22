@@ -5,11 +5,13 @@ interface CounterProps {}
 
 interface CounterState {
   count: number;
+  tags: String[];
 }
 
 class Counter extends React.Component<CounterProps, CounterState> {
   state: CounterState = {
     count: 0,
+    tags: [],
   };
 
   formatCount = () => {
@@ -21,6 +23,19 @@ class Counter extends React.Component<CounterProps, CounterState> {
     let classes = "badge bg-";
     return (classes += this.state.count === 0 ? "warning" : "primary");
   };
+
+  displayTags = () => {
+    if (this.state.tags.length === 0) return <p>'There are no tags.'</p>;
+    else
+      return (
+        <ul>
+          {this.state.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      );
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -29,6 +44,8 @@ class Counter extends React.Component<CounterProps, CounterState> {
           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
           <button className="btn btn-secondary m-2">Increment</button>
         </div>
+        {this.state.tags.length === 0 && "There are no tags"}
+        {this.displayTags()}
       </React.Fragment>
     );
   }
