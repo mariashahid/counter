@@ -11,7 +11,7 @@ interface CounterState {
 class Counter extends React.Component<CounterProps, CounterState> {
   state: CounterState = {
     count: 0,
-    tags: [],
+    tags: ["tag1"],
   };
 
   formatCount = () => {
@@ -22,6 +22,10 @@ class Counter extends React.Component<CounterProps, CounterState> {
   getBadgeClasses = () => {
     let classes = "badge bg-";
     return (classes += this.state.count === 0 ? "warning" : "primary");
+  };
+
+  handleIncrement = () => {
+    console.log("Clicked!", this);
   };
 
   displayTags = () => {
@@ -42,7 +46,12 @@ class Counter extends React.Component<CounterProps, CounterState> {
         <h1>Counters</h1>
         <div>
           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-          <button className="btn btn-secondary m-2">Increment</button>
+          <button
+            onClick={this.handleIncrement}
+            className="btn btn-secondary m-2"
+          >
+            Increment
+          </button>
         </div>
         {this.state.tags.length === 0 && "There are no tags"}
         {this.displayTags()}
