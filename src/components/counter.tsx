@@ -25,7 +25,7 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   handleIncrement = () => {
-    console.log("Clicked!", this);
+    this.setState({ count: this.state.count + 1 });
   };
 
   displayTags = () => {
