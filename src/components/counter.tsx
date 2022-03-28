@@ -43,7 +43,6 @@ class Counter extends React.Component<CounterProps, CounterState> {
   render() {
     return (
       <React.Fragment>
-        <h1>Counters</h1>
         <div>
           <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
           <button
@@ -54,7 +53,6 @@ class Counter extends React.Component<CounterProps, CounterState> {
           </button>
         </div>
         {this.state.tags.length === 0 && "There are no tags"}
-        {this.displayTags()}
       </React.Fragment>
     );
   }

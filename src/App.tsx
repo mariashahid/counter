@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "bootstrap/dist/css/bootstrap.css";
-import Counter from "./components/counter";
+import Counters from "./components/counters";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         </div>
       </nav>
       <div className="container">
-        <Counter></Counter>
+        <Counters></Counters>
       </div>
     </React.Fragment>
   );
