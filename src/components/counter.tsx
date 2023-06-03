@@ -1,31 +1,31 @@
 import * as React from "react";
 import { Component } from "react";
+import { Count } from "./counters";
 
-interface CounterProps {}
+interface CounterProps {
+  counter: Count;
+  onDelete: (id: number) => void;
+  onIncrement: (counter: Count) => void;
+  onDecrement: (counter: Count) => void;
+}
 
 interface CounterState {
-  count: number;
   tags: String[];
 }
 
 class Counter extends React.Component<CounterProps, CounterState> {
   state: CounterState = {
-    count: 0,
     tags: ["tag1"],
   };
 
   formatCount = () => {
-    let { count } = this.state;
-    return count === 0 ? "Zero" : count;
+    let { value } = this.props.counter;
+    return value === 0 ? "Zero" : value;
   };
 
   getBadgeClasses = () => {
     let classes = "badge bg-";
-    return (classes += this.state.count === 0 ? "warning" : "primary");
-  };
-
-  handleIncrement = () => {
-    this.setState({ count: this.state.count + 1 });
+    return (classes += this.props.counter.value === 0 ? "warning" : "primary");
   };
 
   displayTags = () => {
@@ -41,16 +41,39 @@ class Counter extends React.Component<CounterProps, CounterState> {
   };
 
   render() {
+    const { onDelete, onIncrement, onDecrement } = this.props;
+
     return (
       <React.Fragment>
         <div>
-          <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-          <button
-            onClick={this.handleIncrement}
-            className="btn btn-secondary m-2"
-          >
-            Increment
-          </button>
+          <div className="row">
+            <div className="col-1">
+              <span className={this.getBadgeClasses()}>
+                {this.formatCount()}
+              </span>
+            </div>
+            <div className="col-md-3">
+              <button
+                onClick={() => onIncrement(this.props.counter)}
+                className="btn btn-primary m-2"
+              >
+                +
+              </button>
+              <button
+                onClick={() => onDecrement(this.props.counter)}
+                className="btn btn-secondary m-2"
+                disabled={this.props.counter.value == 0 ? true : false}
+              >
+                -
+              </button>
+              <button
+                onClick={() => onDelete(this.props.counter.id)}
+                className="btn btn-danger m-2"
+              >
+                X
+              </button>
+            </div>
+          </div>
         </div>
         {this.state.tags.length === 0 && "There are no tags"}
       </React.Fragment>
